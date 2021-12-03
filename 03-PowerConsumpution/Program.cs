@@ -44,6 +44,8 @@ long g = Convert.ToInt64(gamma, 2);
 long e = Convert.ToInt64(epsilon, 2);
 Console.WriteLine(g*e);
 
+// The leftmost bit/character is in position zero. 
+
 int position = 0;
 string[] modifiedInputs = new string[inputs.Length];
 Array.Copy(inputs, modifiedInputs, inputs.Length);
@@ -62,6 +64,11 @@ Console.WriteLine(oxygenRating);
 modifiedInputs = new string[inputs.Length];
 Array.Copy(inputs, modifiedInputs, inputs.Length);
 position = 0;
+
+// Note: This is a quick and dirty way.
+// We could also sort the numbers and start 
+// investigating the powers of two (or messing with
+// bitwise operations) from there. 
 
 while (modifiedInputs.Length > 1 && position < numbersLength)
 {
