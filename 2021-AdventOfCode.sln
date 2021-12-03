@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-DepthIncrease", "01-Dept
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Position", "02-Position\02-Position.csproj", "{CFAB5EB4-872C-4025-849D-4C9A39441D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-PowerConsumpution", "03-PowerConsumpution\03-PowerConsumpution.csproj", "{82696C07-EE49-44FE-9B22-A208AC1D0399}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-PowerConsumption", "03-PowerConsumpution\03-PowerConsumption.csproj", "{82696C07-EE49-44FE-9B22-A208AC1D0399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
