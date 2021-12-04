@@ -40,9 +40,10 @@ for (int i = 0; i < numbersLength; i++)
     }
 }
 
+
 long g = Convert.ToInt64(gamma, 2);
 long e = Convert.ToInt64(epsilon, 2);
-Console.WriteLine(g*e);
+Console.WriteLine($"gamma * epsilon = {g * e}");
 
 // The leftmost bit/character is in position zero. 
 
@@ -50,25 +51,20 @@ int position = 0;
 string[] modifiedInputs = new string[inputs.Length];
 Array.Copy(inputs, modifiedInputs, inputs.Length);
 
-while (modifiedInputs.Length>1 && position < numbersLength)
+while (modifiedInputs.Length > 1 && position < numbersLength)
 {
     char mostCommon = MostCommonDigitInPosition(modifiedInputs, position);
     modifiedInputs = modifiedInputs.Select(x => x).Where(x => x[position] == mostCommon).ToArray();
     position++;
 }
 
-Console.WriteLine(modifiedInputs[0]);
+Console.WriteLine($"oxygenRating: {modifiedInputs[0]}");
 long oxygenRating = Convert.ToInt64(modifiedInputs[0], 2);
-Console.WriteLine(oxygenRating);
+Console.WriteLine($"oxygenRating: {oxygenRating}");
 
 modifiedInputs = new string[inputs.Length];
 Array.Copy(inputs, modifiedInputs, inputs.Length);
 position = 0;
-
-// Note: This is a quick and dirty way.
-// We could also sort the numbers and start 
-// investigating the powers of two (or messing with
-// bitwise operations) from there. 
 
 while (modifiedInputs.Length > 1 && position < numbersLength)
 {
@@ -77,8 +73,8 @@ while (modifiedInputs.Length > 1 && position < numbersLength)
     position++;
 }
 
-Console.WriteLine(modifiedInputs[0]);
+Console.WriteLine($"co2Rating: {modifiedInputs[0]}");
 long co2Rating = Convert.ToInt64(modifiedInputs[0], 2);
-Console.WriteLine(co2Rating);
+Console.WriteLine($"co2Rating: {co2Rating}");
 
-Console.WriteLine(oxygenRating * co2Rating);
+Console.WriteLine($"oxygenRating * co2Rating: {oxygenRating * co2Rating}");
