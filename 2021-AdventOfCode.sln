@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Position", "02-Position\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-PowerConsumption", "03-PowerConsumpution\03-PowerConsumption.csproj", "{82696C07-EE49-44FE-9B22-A208AC1D0399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04-Bingo", "04-Bingo\04-Bingo.csproj", "{745297E1-BF40-4790-A93C-3CF0EA39F6DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Bingo", "04-Bingo\04-Bingo.csproj", "{745297E1-BF40-4790-A93C-3CF0EA39F6DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05-HydrothermalVenture", "05-HydrothermalVenture\05-HydrothermalVenture.csproj", "{51D7CC47-8051-4D59-9630-88FAB2371FDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{745297E1-BF40-4790-A93C-3CF0EA39F6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{745297E1-BF40-4790-A93C-3CF0EA39F6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{745297E1-BF40-4790-A93C-3CF0EA39F6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
