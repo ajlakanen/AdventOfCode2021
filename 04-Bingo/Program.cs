@@ -62,7 +62,7 @@
 
 }
 
-public class Bingo
+public class Day4
 {
     public static void Main()
     {

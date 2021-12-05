@@ -34,6 +34,9 @@ public class Day5
 
         for (int i = 0; i < lines.Length; i++)
         {
+            // For straight lines, it does not matter in which 
+            // orientation we draw them. Taking the min and max values 
+            // of each dimension makes writing for-loops a bit easier. 
             int lineStartCol = Math.Min(lines[i].Start.X, lines[i].End.X);
             int lineEndCol = Math.Max(lines[i].Start.X, lines[i].End.X);
             int lineStartRow = Math.Min(lines[i].Start.Y, lines[i].End.Y);
@@ -70,7 +73,6 @@ public class Day5
                                  where item > 1
                                  select item).Count();
         Console.WriteLine(overlappingPoints);
-
     }
 
     public static void PrintMatrix(int[,] arr)
@@ -88,7 +90,6 @@ public class Day5
     public static Line ParseLine(string input)
     {
         string[] _startAndEnd = input.Split(" -> ");
-
         string[] _start = _startAndEnd[0].Split(',');
         string[] _end = _startAndEnd[1].Split(',');
 
@@ -97,6 +98,7 @@ public class Day5
             X = int.Parse(_start[0]),
             Y = int.Parse(_start[1])
         };
+
         Point end = new Point()
         {
             X = int.Parse(_end[0]),
