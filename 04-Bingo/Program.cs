@@ -1,7 +1,7 @@
 ﻿public class Board
 {
     public int[,] Numbers;
-    public bool IsWinner;
+    public bool IsBingo;
 
     public Board(int[,] numbers)
     {
@@ -20,12 +20,12 @@
                 }
             }
         }
-        bool hasWon = CheckIfWon();
-        if (hasWon) IsWinner = true;
-        return IsWinner;
+        bool hasWon = CheckBingo();
+        if (hasWon) IsBingo = true;
+        return IsBingo;
     }
 
-    bool CheckIfWon()
+    bool CheckBingo()
     {
         // Rows
         for (int i_row = 0; i_row < 5; i_row++)
@@ -64,8 +64,6 @@
 
 public class Bingo
 {
-
-
     public static void Main()
     {
         string[] input = File.ReadAllLines("data.txt");
@@ -93,12 +91,20 @@ public class Bingo
         {
             int whichNumber = drawn[numbersDrawn];
             boards.ForEach(board => board.Mark(whichNumber));
-            if (winningBoard != null && winningBoard.IsWinner) break;
+
+            // Part A:
+            // if (boards.Select(x => x).Where(x => x.IsWinner).Count() == 1)
+            // {
+            //     winningBoard = boards.Select(x => x).Where(x => x.IsWinner).First();
+            //     break;
+            // }
+
+            // Part B:
+            if (winningBoard != null && winningBoard.IsBingo) break;
             
-            // In Part A, remove exclamation marks
-            if (boards.Select(x => x).Where(x => !x.IsWinner).Count() == 1)
+            if (boards.Select(x => x).Where(x => !x.IsBingo).Count() == 1)
             {
-                winningBoard = boards.Select(x => x).Where(x => !x.IsWinner).First();
+                winningBoard = boards.Select(x => x).Where(x => !x.IsBingo).First();
             }
             numbersDrawn++;
         }
@@ -109,6 +115,6 @@ public class Bingo
                    select item).Sum();
         int lastNumber = drawn[numbersDrawn];
 
-        Console.WriteLine(sum * drawn[numbersDrawn]);
+        Console.WriteLine(sum * lastNumber);
     }
 }
