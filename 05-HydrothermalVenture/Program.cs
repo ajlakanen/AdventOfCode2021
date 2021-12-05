@@ -23,10 +23,7 @@ public class Day5
         Line[] lines = new Line[input.Length];
 
         for (int i = 0; i < input.Length; i++)
-        {
-            Line line = ParseLine(input[i]);
-            lines[i] = line;
-        }
+            lines[i] = ParseLine(input[i]);
 
         int maxX = lines.Max(x => Math.Max(x.Start.X, x.End.X));
         int maxY = lines.Max(x => Math.Max(x.Start.Y, x.End.Y));
