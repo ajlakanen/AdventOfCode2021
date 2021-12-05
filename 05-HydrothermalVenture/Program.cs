@@ -20,10 +20,7 @@ public class Day5
     public static void Main()
     {
         string[] input = File.ReadAllLines("data.txt");
-        Line[] lines = new Line[input.Length];
-
-        for (int i = 0; i < input.Length; i++)
-            lines[i] = ParseLine(input[i]);
+        Line[] lines = Array.ConvertAll(input, x => ParseLine(x));
 
         int maxX = lines.Max(x => Math.Max(x.Start.X, x.End.X));
         int maxY = lines.Max(x => Math.Max(x.Start.Y, x.End.Y));
@@ -49,11 +46,11 @@ public class Day5
 
                 // Part B:
                 int length = lineEndRow - lineStartRow;
-                int diagonal = 0;
-                while(diagonal <= length)
+                int diagonalSteps = 0;
+                while(diagonalSteps <= length)
                 {
-                    diagram[lines[i].Start.Y + diagonal * verticalDirection, lines[i].Start.X + diagonal * horizontalDiretion]++;
-                    diagonal++;
+                    diagram[lines[i].Start.Y + diagonalSteps * verticalDirection, lines[i].Start.X + diagonalSteps * horizontalDiretion]++;
+                    diagonalSteps++;
                 }
             }
             else
