@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-PowerConsumption", "03-P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Bingo", "04-Bingo\04-Bingo.csproj", "{745297E1-BF40-4790-A93C-3CF0EA39F6DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05-HydrothermalVenture", "05-HydrothermalVenture\05-HydrothermalVenture.csproj", "{51D7CC47-8051-4D59-9630-88FAB2371FDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05-HydrothermalVenture", "05-HydrothermalVenture\05-HydrothermalVenture.csproj", "{51D7CC47-8051-4D59-9630-88FAB2371FDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06-LanternFish", "06-LanternFish\06-LanternFish.csproj", "{47F3069A-E1C1-41E9-8F63-2E5D9BAB6954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D7CC47-8051-4D59-9630-88FAB2371FDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F3069A-E1C1-41E9-8F63-2E5D9BAB6954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F3069A-E1C1-41E9-8F63-2E5D9BAB6954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F3069A-E1C1-41E9-8F63-2E5D9BAB6954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F3069A-E1C1-41E9-8F63-2E5D9BAB6954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
