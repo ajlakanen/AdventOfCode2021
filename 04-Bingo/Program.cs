@@ -70,7 +70,7 @@ public class Day4
         int[] drawn = Array.ConvertAll(input[0].Split(','), str => int.Parse(str));
         List<Board> boards = new List<Board>();
 
-        int i = 2;
+        int i = 2; // Boards data start from line 3.
         while (i < input.Length)
         {
             int[,] board = new int[5, 5];
