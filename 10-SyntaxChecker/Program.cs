@@ -55,7 +55,7 @@
     {
         int errorSum = 0;
 
-        var brackets = new List<(char, char, int)>{
+        var brackets = new List<(char Open, char Close, int Score)>{
             ( '(', ')', 3 ),
             ( '[', ']', 57 ),
             ( '{', '}', 1197 ),
@@ -71,10 +71,10 @@
 
             for (int i = 0; i < data.Length; i++)
             {
-                if (brackets.Any(x => x.Item1 == data[i])) characters.Add(data[i]);
-                else if (brackets.Select(x => x).Where(x => x.Item2 == data[i]).Select(x => x.Item1).First() == characters.Last())
+                if (brackets.Any(x => x.Open == data[i])) characters.Add(data[i]);
+                else if (brackets.Select(x => x).Where(x => x.Close == data[i]).Select(x => x.Open).First() == characters.Last())
                     characters.RemoveAt(characters.Count - 1);
-                else return brackets.Select(x => x).Where(x => x.Item2 == data[i]).Select(x => x.Item3).First();
+                else return brackets.Select(x => x).Where(x => x.Close == data[i]).Select(x => x.Score).First();
             }
             return 0;
         }
