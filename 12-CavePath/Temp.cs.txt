@@ -1,0 +1,47 @@
+﻿
+
+
+
+public class Graph
+{
+    public Node Start { get; init; }
+    public Node End { get; init; }
+    public List<(Node Start, Node End)> Edges { get; set; }
+    public Graph()
+    {
+        Edges = new List<(Node, Node)>();
+    }
+}
+
+public class Edge
+{
+    public Node Start { get; set; }
+    public Node End { get; set; }
+}
+
+public class Node
+{
+    public bool IsStart { get; set; }
+    public bool IsEnd { get; set; }
+    public string Name { get; init; }
+    public int VisitMax { get; init; } = int.MaxValue;
+}
+
+
+
+        Graph graph = new Graph();
+        for (int i = 0; i < dataRaw.Length; i++)
+        {
+            (Node Start, Node End) edge = (new Node { Name = dataRaw[i].Split('-')[0] }, new Node { Name = dataRaw[i].Split('-')[1] });
+            if (edge.Start.Name == "start") edge.Start.IsStart = true;
+            if (edge.End.Name == "start") edge.Start.IsStart = true;
+            if (edge.Start.Name == "end") edge.End.IsEnd = true;
+            if (edge.End.Name == "end") edge.End.IsEnd = true;
+
+            graph.Edges.Add(edge);
+        }
+
+        //List<string> nodes = new List<string>();
+        //Array.ForEach(dataRaw, x => { Array.ForEach(x.Split('-'), x => { if (!nodes.Contains(x)) { nodes.Add(x); } }); });
+        // var nodes = dataRaw.Select(x => x.Split('-')).Aggregate((a, b) => a.Concat(b).ToArray()).Distinct();
+        // nodes = new[] { "start" }.Concat(nodes.Select(x => x).Where(x => x != "start" && x != "end")).Concat(new[] { "end" }).ToArray();
