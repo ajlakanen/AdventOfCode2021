@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10-SyntaxChecker", "10-Synt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "11-DumboOctopus", "11-DumboOctopus\11-DumboOctopus.csproj", "{FA489E70-CE19-418A-A43B-A2B26A5079A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12-CavePath", "12-CavePath\12-CavePath.csproj", "{97122B43-E72A-4D93-88EB-8E73549C36A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "12-CavePath", "12-CavePath\12-CavePath.csproj", "{97122B43-E72A-4D93-88EB-8E73549C36A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "15-MinPath", "15-MinPath\15-MinPath.csproj", "{CF30D2E1-6739-4FDF-810A-0C2073359EAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{97122B43-E72A-4D93-88EB-8E73549C36A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97122B43-E72A-4D93-88EB-8E73549C36A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97122B43-E72A-4D93-88EB-8E73549C36A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF30D2E1-6739-4FDF-810A-0C2073359EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF30D2E1-6739-4FDF-810A-0C2073359EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF30D2E1-6739-4FDF-810A-0C2073359EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF30D2E1-6739-4FDF-810A-0C2073359EAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
