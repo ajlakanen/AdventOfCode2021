@@ -1,15 +1,32 @@
 ﻿public class Day15
 {
     private int[,] data;
-    private int Height { get; init; }
-    private int Width { get; init; }
     private bool[,] visited;
     private int[,] dist;
 
-    static int[] Rows = { 0, 1, 0, -1 };
-    static int[] Cols = { 1, 0, -1, 0 };
+    /// <summary>
+    /// Data height
+    /// </summary>
+    private int Height { get; init; }
+    
+    /// <summary>
+    /// Data width
+    /// </summary>
+    private int Width { get; init; }
+    
+    
+    // Offsets for east, south, west, north positions.
+    static int[] RowOffsets = { 0, 1, 0, -1 };
+    static int[] ColOffsets = { 1, 0, -1, 0 };
 
+    /// <summary>
+    /// Destination node row
+    /// </summary>
     private int TargetRow { get; init; }
+
+    /// <summary>
+    /// Destination node column
+    /// </summary>
     private int TargetCol { get; init; }
 
     public static void Main()
@@ -58,8 +75,8 @@
                 // int rowOffset = (int)Math.Cos(i * Math.PI / 2);
                 // int colOffset = (int)Math.Sin(i * Math.PI / 2);
 
-                int rowOffset = Rows[i];
-                int colOffset = Cols[i];
+                int rowOffset = RowOffsets[i];
+                int colOffset = ColOffsets[i];
                 if (currRow + rowOffset < 0 || currRow + rowOffset > Height - 1) continue;
                 if (currCol + colOffset < 0 || currCol + colOffset > Width - 1) continue;
                 if (visited[currRow + rowOffset, currCol + colOffset]) continue;
@@ -115,5 +132,4 @@
             Console.Write(Environment.NewLine);
         }
     }
-
 }
