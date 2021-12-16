@@ -52,7 +52,6 @@
     {
         while (!visited[TargetRow, TargetCol])
         {
-
             for (int i = 0; i <= 3; i++)
             {
                 // This was a brilliant idea which was later found stupid :-)
