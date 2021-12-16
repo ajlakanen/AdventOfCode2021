@@ -5,8 +5,12 @@
     private int Width { get; init; }
     private bool[,] visited;
     private int[,] dist;
-    private int currentRow;
-    private int currentCol;
+
+    static int[] Rows = { 0, 1, 0, -1 };
+    static int[] Cols = { 1, 0, -1, 0 };
+
+    private int TargetRow { get; init; }
+    private int TargetCol { get; init; }
 
     public static void Main()
     {
@@ -15,7 +19,6 @@
         Day15 day15 = new Day15(dataRaw);
         int result = day15.Part1();
         Console.WriteLine(result);
-        //PrintMatrix(data);
     }
 
     public Day15(string[] dataRaw)
@@ -23,53 +26,95 @@
         // Let's assume all rows are equal length. 
         Height = dataRaw.Length;
         Width = dataRaw.Max(x => x.Length);
+        TargetRow = Height - 1;
+        TargetCol = Width - 1;
         this.data = new int[Height, Width];
+        this.dist = new int[Height, Width];
         this.visited = new bool[Height, Width];
         for (int i = 0; i < Height; i++)
+        {
             for (int j = 0; j < Width; j++)
+            {
                 data[i, j] = int.Parse(dataRaw[i][j] + "");
+                dist[i, j] = 9999;
+            }
+        }
     }
 
     public int Part1()
     {
-        currentCol = 0;
-        currentRow = 0;
-        int minDistance = Dijkstra(currentRow, currentCol);
-
+        dist[0, 0] = 0;
+        int minDistance = Dijkstra(0, 0);
         return minDistance;
     }
 
     private int Dijkstra(int currRow, int currCol)
     {
-        //bool top = (currRow - 1 < 0) ? false : true;
-        //bool bottom = currRow + 1 > this.data.GetLength(0) - 1 ? false : true;
-        //bool left = currCol - 1 < 0 ? false : true;
-        //bool right = currCol + 1 > this.data.GetLength(1) - 1 ? false : true;
-        //if (top)
-        //    if (!visited[currRow - 1, currRow])
-        //        if (dist[currRow, currCol] + 1 < dist[currRow - 1, currCol])
-        //            dist[currRow - 1, currCol] = dist[currRow, currCol] + 1;
+        while (!visited[TargetRow, TargetCol])
+        {
 
-        //for (double d = 0; d <= 3 * Math.PI / 4; d += Math.PI / 2)
-        //{
+            for (int i = 0; i <= 3; i++)
+            {
+                // This was a brilliant idea which was later found stupid :-)
+                // int rowOffset = (int)Math.Cos(i * Math.PI / 2);
+                // int colOffset = (int)Math.Sin(i * Math.PI / 2);
 
-        //}
+                int rowOffset = Rows[i];
+                int colOffset = Cols[i];
+                if (currRow + rowOffset < 0 || currRow + rowOffset > Height - 1) continue;
+                if (currCol + colOffset < 0 || currCol + colOffset > Width - 1) continue;
+                if (visited[currRow + rowOffset, currCol + colOffset]) continue;
+                if (dist[currRow, currCol] + data[currRow + rowOffset, currCol + colOffset] < dist[currRow + rowOffset, currCol + colOffset])
+                {
+                    dist[currRow + rowOffset, currCol + colOffset] = dist[currRow, currCol] + data[currRow + rowOffset, currCol + colOffset];
+                }
+            }
 
+            visited[currRow, currCol] = true;
+
+            (int closestRow, int closestCol) = ClosestUnvisited();
+            currRow = closestRow;
+            currCol = closestCol;
+        }
+        return dist[TargetRow, TargetCol];
+    }
+
+    /// <summary>
+    /// Unvisited node closest to the starting point.
+    /// C# can't do linq on 2d arrays :-(.
+    /// </summary>
+    /// <returns>Closest (row, col)</returns>
+    (int, int) ClosestUnvisited()
+    {
         int minRow = -1;
         int minCol = -1;
         int minNeighbourDist = int.MaxValue;
-        for (int i = 0; i <= 3; i++)
+        for (int i = 0; i < Height; i++)
         {
-            int rowOffset = (int)Math.Cos(i * Math.PI / 2);
-            int colOffset = (int)Math.Sin(i * Math.PI / 2);
-            if (currentRow + rowOffset < 0 || currentRow + rowOffset > Height - 1) continue;
-            if (currentCol + colOffset < 0 || currentCol + colOffset > Width - 1) continue;
-            if (visited[currRow + rowOffset, currCol + colOffset]) continue;
-            if (data[currRow + rowOffset, currCol + colOffset] < minNeighbourDist) { minRow = currRow + rowOffset; minCol = currCol + colOffset; }
+            for (int j = 0; j < Width; j++)
+            {
+                if (visited[i, j]) continue;
+                if (dist[i, j] < minNeighbourDist)
+                {
+                    minRow = i;
+                    minCol = j;
+                    minNeighbourDist = dist[i, j];
+                }
+            }
         }
-
-        Console.WriteLine("===");
-
-        throw new NotImplementedException();
+        return (minRow, minCol);
     }
+
+    public static void PrintMatrix<T>(T[,] arr)
+    {
+        for (int i = 0; i < arr.GetLength(0); i++)
+        {
+            for (int j = 0; j < arr.GetLength(1); j++)
+            {
+                Console.Write(string.Format("{0,3} ", arr[i, j]));
+            }
+            Console.Write(Environment.NewLine);
+        }
+    }
+
 }

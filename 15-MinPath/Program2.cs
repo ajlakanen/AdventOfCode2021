@@ -15,6 +15,40 @@
     //    //PrintMatrix(data);
     //}
 
+
+
+    //(int, int) ClosestNeighbour(int currRow, int currCol)
+    //{
+    //    int minRow = -1;
+    //    int minCol = -1;
+    //    int minNeighbourDist = int.MaxValue;
+    //    for (int i = 0; i <= 3; i++)
+    //    {
+    //        int rowOffset = (int)Math.Cos(i * Math.PI / 2);
+    //        int colOffset = (int)Math.Sin(i * Math.PI / 2);
+    //        if (currRow + rowOffset < 0 || currRow + rowOffset > Height - 1) continue;
+    //        if (currCol + colOffset < 0 || currCol + colOffset > Width - 1) continue;
+    //        if (visited[currRow + rowOffset, currCol + colOffset]) continue;
+    //        if (dist[currRow + rowOffset, currCol + colOffset] < minNeighbourDist)
+    //        {
+    //            minNeighbourDist = dist[currRow, currCol] + data[currRow + rowOffset, currCol + colOffset];
+    //            minRow = currRow + rowOffset;
+    //            minCol = currCol + colOffset;
+    //        }
+    //    }
+    //    if (minRow == -1)
+    //    {
+    //        PrintMatrix(data);
+    //        Console.WriteLine("===");
+    //        PrintMatrix(dist);
+    //        Console.WriteLine("===");
+    //        //PrintMatrix(visited);
+    //    }
+    //    return (minRow, minCol);
+    //}
+
+
+
     private static int Part1(int[,] data)
     {
         int[,] costs = Costs(data);
