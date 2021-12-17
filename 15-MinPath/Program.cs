@@ -8,13 +8,13 @@
     /// Data height
     /// </summary>
     private int Height { get; init; }
-    
+
     /// <summary>
     /// Data width
     /// </summary>
     private int Width { get; init; }
-    
-    
+
+
     // Offsets for east, south, west, north positions.
     static int[] RowOffsets = { 0, 1, 0, -1 };
     static int[] ColOffsets = { 1, 0, -1, 0 };
@@ -36,26 +36,88 @@
         Day15 day15 = new Day15(dataRaw);
         int result = day15.Part1();
         Console.WriteLine(result);
+        day15 = new Day15(dataRaw, 5);
+        result = day15.Part1();
+        Console.WriteLine(result);
+
     }
 
-    public Day15(string[] dataRaw)
+    public Day15(string[] dataRaw, int factor = 1)
     {
         // Let's assume all rows are equal length. 
-        Height = dataRaw.Length;
-        Width = dataRaw.Max(x => x.Length);
+        Height = dataRaw.Length * factor;
+        Width = dataRaw.Max(x => x.Length) * factor;
         TargetRow = Height - 1;
         TargetCol = Width - 1;
         this.data = new int[Height, Width];
         this.dist = new int[Height, Width];
         this.visited = new bool[Height, Width];
+        for (int i = 0; i < Height / factor; i++)
+        {
+            for (int j = 0; j < Width / factor; j++)
+            {
+                data[i, j] = int.Parse(dataRaw[i][j] + "");
+            }
+        }
+
         for (int i = 0; i < Height; i++)
+        {
+            for (int j = 0; j< Width; j++)
+            {
+                dist[i, j] = 99999;
+            }
+        }
+
+        if (factor == 1) return;
+
+        //for (int i = 0; i < Height / factor; i++)
+        //{
+        //    for (int j = 0; j < Width / factor; j++)
+        //    {
+        //        for (int k = 0; k < 5; k++)
+        //        {
+        //            for (int l = 0; l < 5; l++)
+        //            {
+        //                if (i + k * Height / factor < 10 && j + l * Width / factor < 10) continue;
+        //                data[i + k * Height / factor, j + l * Width / factor] = (data[i, j]+ i + k * Height / factor + j + l * Width / factor)%10;
+        //            }
+        //        }
+        //    }
+        //}
+
+        //int[,] test = new int[5, 5];
+        //test[0, 0] = 8;
+
+        //for (int i = 0; i < 1; i++)
+        //{
+        //    for (int j = 1; j < 5; j++)
+        //    {
+        //        if (i == 0 && j == 0) continue;
+        //        test[i, j] = test[i, j - 1] + 1;
+        //        if (test[i, j] > 9) test[i, j] = 1;
+        //    }
+        //}
+
+        for (int i = 0; i < Height/factor; i++)
+        {
+            for (int j = Width/factor; j < Width; j++)
+            {
+                data[i, j] = data[i, j - Width / factor] + 1;
+                if (data[i, j] > 9) data[i, j] = 1;
+            }
+        }
+
+        for (int i = Height/factor; i < Height; i++)
         {
             for (int j = 0; j < Width; j++)
             {
-                data[i, j] = int.Parse(dataRaw[i][j] + "");
-                dist[i, j] = 9999;
+                data[i, j] = data[i - Width/factor, j] + 1;
+                if (data[i, j] > 9) data[i, j] = 1;
             }
         }
+
+        //PrintMatrix(data);
+        //PrintMatrix(data);
     }
 
     public int Part1()
