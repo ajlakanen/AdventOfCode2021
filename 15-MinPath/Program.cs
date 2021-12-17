@@ -135,7 +135,7 @@
     /// <summary>
     /// Unvisited node closest to the starting point.
     /// C# can't do linq on 2d arrays :-(.
-    /// This is slow!!!
+    /// This is slow and needs a priority queue.
     /// </summary>
     /// <returns>Closest (row, col)</returns>
     (int, int) ClosestUnvisited()
