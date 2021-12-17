@@ -29,6 +29,8 @@
     /// </summary>
     private int TargetCol { get; init; }
 
+    List<(int row, int col)> unvisited;
+
     public static void Main()
     {
         string[] dataRaw = File.ReadAllLines("data.txt");
@@ -52,6 +54,7 @@
         this.data = new int[Height, Width];
         this.dist = new int[Height, Width];
         this.visited = new bool[Height, Width];
+        this.unvisited = new List<(int x, int y)>();
         for (int i = 0; i < Height / factor; i++)
         {
             for (int j = 0; j < Width / factor; j++)
@@ -62,62 +65,33 @@
 
         for (int i = 0; i < Height; i++)
         {
-            for (int j = 0; j< Width; j++)
+            for (int j = 0; j < Width; j++)
             {
                 dist[i, j] = 99999;
+                unvisited.Add(new(i, j));
             }
         }
 
+
         if (factor == 1) return;
 
-        //for (int i = 0; i < Height / factor; i++)
-        //{
-        //    for (int j = 0; j < Width / factor; j++)
-        //    {
-        //        for (int k = 0; k < 5; k++)
-        //        {
-        //            for (int l = 0; l < 5; l++)
-        //            {
-        //                if (i + k * Height / factor < 10 && j + l * Width / factor < 10) continue;
-        //                data[i + k * Height / factor, j + l * Width / factor] = (data[i, j]+ i + k * Height / factor + j + l * Width / factor)%10;
-        //            }
-        //        }
-        //    }
-        //}
-
-        //int[,] test = new int[5, 5];
-        //test[0, 0] = 8;
-
-        //for (int i = 0; i < 1; i++)
-        //{
-        //    for (int j = 1; j < 5; j++)
-        //    {
-        //        if (i == 0 && j == 0) continue;
-        //        test[i, j] = test[i, j - 1] + 1;
-        //        if (test[i, j] > 9) test[i, j] = 1;
-        //    }
-        //}
-
-        for (int i = 0; i < Height/factor; i++)
+        for (int i = 0; i < Height / factor; i++)
         {
-            for (int j = Width/factor; j < Width; j++)
+            for (int j = Width / factor; j < Width; j++)
             {
                 data[i, j] = data[i, j - Width / factor] + 1;
                 if (data[i, j] > 9) data[i, j] = 1;
             }
         }
 
-        for (int i = Height/factor; i < Height; i++)
+        for (int i = Height / factor; i < Height; i++)
         {
             for (int j = 0; j < Width; j++)
             {
-                data[i, j] = data[i - Width/factor, j] + 1;
+                data[i, j] = data[i - Width / factor, j] + 1;
                 if (data[i, j] > 9) data[i, j] = 1;
             }
         }
-
-        //PrintMatrix(data);
-        //PrintMatrix(data);
     }
 
     public int Part1()
@@ -149,8 +123,9 @@
             }
 
             visited[currRow, currCol] = true;
+            unvisited.Remove((currRow, currCol));
 
-            (int closestRow, int closestCol) = ClosestUnvisited();
+            (int closestRow, int closestCol) = ClosestUnvisited2();
             currRow = closestRow;
             currCol = closestCol;
         }
@@ -160,6 +135,7 @@
     /// <summary>
     /// Unvisited node closest to the starting point.
     /// C# can't do linq on 2d arrays :-(.
+    /// This is slow!!!
     /// </summary>
     /// <returns>Closest (row, col)</returns>
     (int, int) ClosestUnvisited()
@@ -181,6 +157,24 @@
             }
         }
         return (minRow, minCol);
+    }
+
+    (int, int) ClosestUnvisited2()
+    {
+        int minRow = -1;
+        int minCol = -1;
+        int minNeighbourDist = int.MaxValue;
+        foreach (var node in unvisited)
+        {
+            if (dist[node.row, node.col] < minNeighbourDist)
+            {
+                minRow = node.row;
+                minCol = node.col;
+                minNeighbourDist = dist[node.row, node.col];
+            }
+        }
+        return (minRow, minCol);
+
     }
 
     public static void PrintMatrix<T>(T[,] arr)
