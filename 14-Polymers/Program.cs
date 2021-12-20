@@ -9,9 +9,9 @@ public class Day14
 
     public static void Main()
     {
-        string[][] splitted = Array.ConvertAll(File.ReadAllLines("dataSmall.txt"), x => x.Split("->", StringSplitOptions.RemoveEmptyEntries));
+        string[][] splitted = Array.ConvertAll(File.ReadAllLines("data.txt"), x => x.Split("->", StringSplitOptions.RemoveEmptyEntries));
         Day14 day14 = new Day14(splitted);
-        long count = day14.Apply4(day14.Start, 10);
+        long count = day14.Apply4(day14.Start, 40);
         Console.WriteLine(count);
     }
 
@@ -42,7 +42,7 @@ public class Day14
         return count;
     }
 
-    private int Apply4(string start, int steps)
+    private long Apply4(string start, int steps)
     {
         Dictionary<string, long> pairCounts = new Dictionary<string, long>();
         Dictionary<char, long> charCounts = new Dictionary<char, long>();
@@ -73,10 +73,10 @@ public class Day14
                 string pair1 = input[0] + output;
                 string pair2 = output + input[1];
 
-                if (!pairPool.TryAdd(pair1, 1)) pairPool[pair1]++;
-                if (!pairPool.TryAdd(pair2, 1)) pairPool[pair2]++;
-                pairCounts[item.Key] = Math.Max(0, pairCounts[item.Key] - 1);
-                if (!charCounts.TryAdd(output[0], 1)) charCounts[output[0]]++;
+                if (!pairPool.TryAdd(pair1, item.Value)) pairPool[pair1] += item.Value;
+                if (!pairPool.TryAdd(pair2, item.Value)) pairPool[pair2] += item.Value;
+                pairCounts[input] = 0;
+                if (!charCounts.TryAdd(output[0], item.Value)) charCounts[output[0]] += item.Value;
             }
 
             foreach (var item in pairPool)
@@ -86,7 +86,12 @@ public class Day14
             pairPool.Clear();
         }
 
-        return 0;
+        //var freqCounts = result.ToString().Select(x => x).GroupBy(x => x).OrderByDescending(x => x.Count());
+        var cc = charCounts.OrderByDescending(x => x.Value);
+        var count = cc.First().Value - cc.Last().Value;
+        return count;
+
+        //return 0;
     }
 
     private int Apply3(int steps)
