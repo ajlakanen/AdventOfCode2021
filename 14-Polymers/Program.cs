@@ -75,7 +75,7 @@ public class Day14
 
                 if (!pairPool.TryAdd(pair1, 1)) pairPool[pair1]++;
                 if (!pairPool.TryAdd(pair2, 1)) pairPool[pair2]++;
-                pairCounts[item.Key]--;
+                pairCounts[item.Key] = Math.Max(0, pairCounts[item.Key] - 1);
                 if (!charCounts.TryAdd(output[0], 1)) charCounts[output[0]]++;
             }
 
