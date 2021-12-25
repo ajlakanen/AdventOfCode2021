@@ -148,38 +148,22 @@ public class Day16
         }
         else // Operator
         {
-            if (bits[i++] == '0') // the next 15 bits contain the total length in bits of the sub-packets contained by this packet
+            int lTypeID = int.Parse(bits[i++] +"");
+            int lTypeBits = lTypeID == 0 ? 15 : 11;
+
+            int lenOrNumber = Convert.ToInt32(bits[i..(i + lTypeBits)], 2);
+            i += lTypeBits;
+            bits = bits.Substring(i);
+            int j = 0;
+            while (j < lenOrNumber)
             {
-                int length = Convert.ToInt32(bits[i..(i + 15)], 2);
-                i += 15;
-                bits = bits.Substring(i);
-                int j = 0;
-                while (j < length)
-                {
-                    var (p, remaining) = ReadNext(bits);
-                    if (remaining.Length == 0) j = length;
-                    else j = bits.Length - remaining.Length;
-                    bits = remaining;
-                    packet.AddPacket(p);
-                }
-                i += length; // TODO: Do we need this?
-                return (packet, bits);
+                var (p, remaining) = ReadNext(bits);
+                if (remaining.Length == 0) j = lenOrNumber;
+                else j = lTypeID == 0 ? bits.Length - remaining.Length : j + 1;
+                bits = remaining;
+                packet.AddPacket(p);
             }
-            else // the next 11 bits are a number that represents the number of sub-packets immediately contained by this packet
-            {
-                int noOfSubPackets = Convert.ToInt32(bits[i..(i + 11)], 2);
-                i += 11;
-                bits = bits.Substring(i);
-                int j = 0;
-                while (j < noOfSubPackets)
-                {
-                    var (p, remaining) = ReadNext(bits);
-                    packet.AddPacket(p);
-                    bits = remaining;
-                    j++;
-                }
-                return (packet, bits);
-            }
+            return (packet, bits);
         }
     }
 
