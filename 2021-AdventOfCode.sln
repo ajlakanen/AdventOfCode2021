@@ -33,7 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "13-Fold", "13-Fold\13-Fold.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "15-MinPath-V2", "15-MinPath-V2\15-MinPath-V2.csproj", "{F324690A-FD27-4F84-B8BB-C8955CDFD0FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14-Polymers", "14-Polymers\14-Polymers.csproj", "{2BC0DE65-BA05-4CD2-873A-56D64B7A05BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "14-Polymers", "14-Polymers\14-Polymers.csproj", "{2BC0DE65-BA05-4CD2-873A-56D64B7A05BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "16-PacketDecoder", "16-PacketDecoder\16-PacketDecoder.csproj", "{C87AADF0-F493-4361-81CC-7D5B90A477A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16-Packets", "16-Packets\16-Packets.csproj", "{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +109,14 @@ Global
 		{2BC0DE65-BA05-4CD2-873A-56D64B7A05BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC0DE65-BA05-4CD2-873A-56D64B7A05BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC0DE65-BA05-4CD2-873A-56D64B7A05BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87AADF0-F493-4361-81CC-7D5B90A477A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87AADF0-F493-4361-81CC-7D5B90A477A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87AADF0-F493-4361-81CC-7D5B90A477A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87AADF0-F493-4361-81CC-7D5B90A477A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -352,3 +352,10 @@ MigrationBackup/
 /11-DumboOctopus/Temp.cs
 /12-CavePath/Program2.txt
 /15-MinPath-V2
+/16-PacketDecoder/Program.cs
+/16-PacketDecoder/dataSmall.txt
+/16-PacketDecoder/dataMini2.txt
+/16-PacketDecoder/dataMini.txt
+/16-PacketDecoder/data.txt
+/16-PacketDecoder/16-PacketDecoder.csproj
+/16-PacketDecoder
