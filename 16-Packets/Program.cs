@@ -1,70 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
 
-public enum PacketType { Sum = 0, Product = 1, Minimum = 2, Maximum = 3, Literal = 4, Gt = 5, Lt = 6, Equal = 7 }
-
-public delegate int PacketCalculation(List<int> items);
-
-static class PacketTypeMethods
-{
-    public static PacketCalculation Method(this PacketType pt)
-    {
-        switch (pt)
-        {
-            case PacketType.Sum:
-                return x => x.Sum();
-            case PacketType.Product:
-                return x => x.Aggregate(1, (prev, next) => prev * next);
-            case PacketType.Minimum:
-                return x => x.Min();
-            case PacketType.Maximum:
-                return x => x.Max();
-            case PacketType.Gt:
-                return x => x.First() > x.Last() ? 1 : 0;
-            case PacketType.Lt:
-                return x => x.First() < x.Last() ? 1 : 0;
-            case PacketType.Equal:
-                return x => x.First() == x.Last() ? 1 : 0;
-            default:
-                throw new ArgumentException();
-        }
-    }
-}
-
-public class Packet
-{
-    public PacketType Type;
-    public int Version;
-    public List<Packet> Packets = new List<Packet>();
-    private string sLiteral = "";
-    public string StrLiteral
-    {
-        get { return sLiteral; }
-        set
-        {
-            sLiteral = value;
-            iLiteral = Convert.ToInt64(value, 2);
-        }
-    }
-
-
-
-    public long iLiteral;
-
-    public void AddPacket(Packet packet)
-    {
-        Packets ??= new List<Packet>();
-        Packets.Add(packet);
-    }
-
-    public int VersionSum()
-    {
-        int sum = 0;
-        sum += Version;
-        if (Packets != null) Packets.ForEach(packet => { if (packet != null) { sum += packet.VersionSum(); } });
-        return sum;
-    }
-}
 
 public class Day16
 {
@@ -112,8 +48,6 @@ public class Day16
             j += 5;
             if (bits[j - 5] == '0') break;
         }
-        //int literal = Convert.ToInt32(sLiteral, 2);
-
         return (sLiteral, bits.Substring(j));
     }
 
@@ -135,9 +69,6 @@ public class Day16
 
         packet.Version = Version(bits, i);
         packet.Type = Type(bits, i);
-        // packet.Type = typeID ==4 ? PacketType.Literal : PacketType.Operator;
-        // packet.Type = (PacketType)typeID;
-        
         i += 6;
 
         if (packet.Type == PacketType.Literal)
@@ -148,7 +79,7 @@ public class Day16
         }
         else // Operator
         {
-            int lTypeID = int.Parse(bits[i++] +"");
+            int lTypeID = int.Parse(bits[i++] + "");
             int lTypeBits = lTypeID == 0 ? 15 : 11;
 
             int lenOrNumber = Convert.ToInt32(bits[i..(i + lTypeBits)], 2);
