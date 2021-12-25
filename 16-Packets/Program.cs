@@ -1,13 +1,42 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.Text;
 
-public enum PacketType { Literal, Operator }
+public enum PacketType { Sum = 0, Product = 1, Minimum = 2, Maximum = 3, Literal = 4, Gt = 5, Lt = 6, Equal = 7 }
+
+public delegate int PacketCalculation(List<int> items);
+
+static class PacketTypeMethods
+{
+    public static PacketCalculation Method(this PacketType pt)
+    {
+        switch (pt)
+        {
+            case PacketType.Sum:
+                return x => x.Sum();
+            case PacketType.Product:
+                return x => x.Aggregate(1, (prev, next) => prev * next);
+            case PacketType.Minimum:
+                return x => x.Min();
+            case PacketType.Maximum:
+                return x => x.Max();
+            case PacketType.Gt:
+                return x => x.First() > x.Last() ? 1 : 0;
+            case PacketType.Lt:
+                return x => x.First() < x.Last() ? 1 : 0;
+            case PacketType.Equal:
+                return x => x.First() == x.Last() ? 1 : 0;
+            default:
+                throw new ArgumentException();
+        }
+    }
+}
 
 public class Packet
 {
     public PacketType Type;
     public int Version;
-    public List<Packet>? Packets = new List<Packet>();
-    private string? sLiteral;
+    public List<Packet> Packets = new List<Packet>();
+    private string sLiteral = "";
     public string StrLiteral
     {
         get { return sLiteral; }
@@ -17,7 +46,11 @@ public class Packet
             iLiteral = Convert.ToInt64(value, 2);
         }
     }
-    public long? iLiteral;
+
+
+
+    public long iLiteral;
+
     public void AddPacket(Packet packet)
     {
         Packets ??= new List<Packet>();
@@ -28,7 +61,7 @@ public class Packet
     {
         int sum = 0;
         sum += Version;
-        if(Packets != null) Packets.ForEach( packet => { if (packet != null) { sum += packet.VersionSum(); } });
+        if (Packets != null) Packets.ForEach(packet => { if (packet != null) { sum += packet.VersionSum(); } });
         return sum;
     }
 }
@@ -66,7 +99,7 @@ public class Day16
     }
 
     private int Version(string bits, int i) => Convert.ToInt32(bits[i..(i + 3)], 2);
-    private int Type(string bits, int i) => Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
+    private PacketType Type(string bits, int i) => (PacketType)Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
 
     private (string value, string remainingBits) Literal(string bits, int i)
     {
@@ -101,11 +134,13 @@ public class Day16
         Packet packet = new Packet();
 
         packet.Version = Version(bits, i);
-        int typeID = Type(bits, i);
-        packet.Type = typeID ==4 ? PacketType.Literal : PacketType.Operator;
+        packet.Type = Type(bits, i);
+        // packet.Type = typeID ==4 ? PacketType.Literal : PacketType.Operator;
+        // packet.Type = (PacketType)typeID;
+        
         i += 6;
 
-        if (typeID == 4) // Literal
+        if (packet.Type == PacketType.Literal)
         {
             (string value, string remaining) = Literal(bits, i);
             packet.StrLiteral = value;
@@ -132,7 +167,7 @@ public class Day16
             }
             else // the next 11 bits are a number that represents the number of sub-packets immediately contained by this packet
             {
-                int noOfSubPackets = Convert.ToInt32(bits[i..(i + 11)],2);
+                int noOfSubPackets = Convert.ToInt32(bits[i..(i + 11)], 2);
                 i += 11;
                 bits = bits.Substring(i);
                 int j = 0;
