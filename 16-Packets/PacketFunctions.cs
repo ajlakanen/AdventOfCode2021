@@ -1,8 +1,8 @@
-﻿public delegate int PacketCalculation(List<int> items);
+﻿public delegate int PacketFunction(List<int> items);
 
-static class PacketTypeMethods
+static class PacketFunctions
 {
-    public static PacketCalculation Method(this PacketType pt)
+    public static PacketFunction Function(this PacketType pt)
     {
         switch (pt)
         {
