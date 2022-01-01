@@ -100,7 +100,7 @@ public class Day16
 
             int lenOrNumber = Convert.ToInt32(bits[i..(i + lenTypeBits)], 2);
             i += lenTypeBits;
-            bits = bits.Substring(i);
+            bits = bits[i..];
             int j = 0;
             while (j < lenOrNumber)
             {
