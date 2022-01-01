@@ -58,10 +58,6 @@ public class Day16
         packet = p;
 
         var result = Eval(packet);
-
-        //int sum = 0;
-        //return sum;
-
         return packet.VersionSum();
     }
 
