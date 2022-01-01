@@ -28,7 +28,7 @@ public class Day16
     {
         string dataRaw = File.ReadAllLines("data.txt")[0];
         Day16 day16 = new Day16(dataRaw);
-        day16.Solve(day16._bits);
+        day16.Solve(day16._bits, false);
     }
 
     private int ParseVersion(string bits, int i, bool debug = false)
@@ -56,10 +56,10 @@ public class Day16
         return (sLiteral, bits[j..]);
     }
 
-    private void Solve(string bits)
+    private void Solve(string bits, bool debug = false)
     {
         Packet packet;
-        var (p, remaining) = ReadNext(bits);
+        var (p, remaining) = ReadNext(bits, debug);
         packet = p;
         Console.WriteLine(packet.VersionSum());
         var eval = Eval(packet);
@@ -111,7 +111,7 @@ public class Day16
             int lenOrNumber = Convert.ToInt32(bits[i..(i + lenTypeBits)], 2);
 
             #region Debug
-            if (debug) Console.Write(lenTypeID + " "); 
+            if (debug) Console.Write(lenTypeID + " ");
             if (debug) Console.Write(bits[i..(i + lenTypeBits)] + " ");
             if (debug) Console.Write(" // ");
             if (debug) Console.Write((PacketType)typeID + " ");
