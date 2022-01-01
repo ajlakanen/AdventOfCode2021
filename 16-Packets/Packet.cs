@@ -40,30 +40,28 @@ public class Operator : Packet
         Packets ??= new List<Packet>();
         Packets.Add(packet);
     }
+
+    public override int VersionSum()
+    {
+        int sum = 0;
+        sum += Version;
+        Packets.ForEach(x => sum += x.VersionSum());
+        return sum;
+    }
 }
 
 public class Packet
 {
     public int TypeID;
     public int Version;
-    public List<Packet> Packets = new List<Packet>();
 
     public Packet(int version)
     {
         Version = version;
     }
 
-    public void AddPacket(Packet packet)
+    public virtual int VersionSum()
     {
-        Packets ??= new List<Packet>();
-        Packets.Add(packet);
-    }
-
-    public int VersionSum()
-    {
-        int sum = 0;
-        sum += Version;
-        if (Packets != null) Packets.ForEach(packet => { if (packet != null) { sum += packet.VersionSum(); } });
-        return sum;
+        return Version;
     }
 }

@@ -59,14 +59,18 @@ public class Day16
 
         var result = Eval(packet);
 
+        //int sum = 0;
+        //return sum;
+
         return packet.VersionSum();
     }
 
     private long Eval(Packet packet)
     {
         if (packet is Literal) return (packet as Literal).iValue;
+        packet = (Operator)packet;
         PacketFunction func = (packet as Operator).Function;
-        var packets = packet.Packets;
+        var packets = (packet as Operator).Packets;
         List<long> values = new List<long>();
 
         foreach (Packet p in packets)
@@ -84,18 +88,13 @@ public class Day16
         if (bits.All(x => x == '0'))
             return (null, "");
         int i = 0;
-        // Packet packet = new Packet();
-
-        // packet.Version = Version(bits, i);
         int version = Version(bits, i);
         int typeID = Type(bits, i);
         Packet packet;
         if (typeID == 4) packet = new Literal(version);
         else packet = new Operator(version);
-        // packet.Type = (PacketType)packet.TypeID;
         i += 6;
 
-        //if (packet.Type == PacketType.Literal)
         if (packet is Literal)
         {
             (string value, string remaining) = Literal(bits, i);
@@ -118,7 +117,7 @@ public class Day16
                 if (remaining.Length == 0) j = lenOrNumber;
                 else j = lenTypeID == 0 ? bits.Length - remaining.Length : j + 1;
                 bits = remaining;
-                if (p != null) packet.AddPacket(p);
+                if (p != null) (packet as Operator).AddPacket(p);
             }
             return (packet, bits);
         }
