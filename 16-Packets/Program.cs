@@ -53,7 +53,7 @@ public class Day16
 
     private int Solve(string bits)
     {
-        Packet packet = new Packet();
+        Packet packet;
         var (p, remaining) = ReadNext(bits);
         packet = p;
 
@@ -64,8 +64,8 @@ public class Day16
 
     private long Eval(Packet packet)
     {
-        if (packet.Type == PacketType.Literal) return packet.iLiteral;
-        var func = packet.PacketFunction;
+        if (packet is Literal) return (packet as Literal).iValue;
+        PacketFunction func = (packet as Operator).Function;
         var packets = packet.Packets;
         List<long> values = new List<long>();
 
@@ -84,24 +84,29 @@ public class Day16
         if (bits.All(x => x == '0'))
             return (null, "");
         int i = 0;
-        Packet packet = new Packet();
+        // Packet packet = new Packet();
 
-        packet.Version = Version(bits, i);
-        packet.TypeID = Type(bits, i);
-        packet.Type = (PacketType)packet.TypeID;
+        // packet.Version = Version(bits, i);
+        int version = Version(bits, i);
+        int typeID = Type(bits, i);
+        Packet packet;
+        if (typeID == 4) packet = new Literal(version);
+        else packet = new Operator(version);
+        // packet.Type = (PacketType)packet.TypeID;
         i += 6;
 
-        if (packet.Type == PacketType.Literal)
+        //if (packet.Type == PacketType.Literal)
+        if (packet is Literal)
         {
             (string value, string remaining) = Literal(bits, i);
-            packet.StrLiteral = value;
+            (packet as Literal).StrValue = value;
             return (packet, remaining);
         }
         else // Operator
         {
-            int lTypeID = int.Parse(bits[i++] + "");
-            packet.PacketFunction = PacketFunctions.Function(packet.Type);
-            int lTypeBits = lTypeID == 0 ? 15 : 11;
+            int lenTypeID = int.Parse(bits[i++] + "");
+            (packet as Operator).Function = Operators.Function((PacketType)packet.TypeID);
+            int lTypeBits = lenTypeID == 0 ? 15 : 11;
 
             int lenOrNumber = Convert.ToInt32(bits[i..(i + lTypeBits)], 2);
             i += lTypeBits;
@@ -111,7 +116,7 @@ public class Day16
             {
                 var (p, remaining) = ReadNext(bits);
                 if (remaining.Length == 0) j = lenOrNumber;
-                else j = lTypeID == 0 ? bits.Length - remaining.Length : j + 1;
+                else j = lenTypeID == 0 ? bits.Length - remaining.Length : j + 1;
                 bits = remaining;
                 if (p != null) packet.AddPacket(p);
             }

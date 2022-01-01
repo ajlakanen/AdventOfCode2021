@@ -1,6 +1,6 @@
 ﻿public delegate long PacketFunction(List<long> items);
 
-static class PacketFunctions
+static class Operators
 {
     public static PacketFunction Function(this PacketType pt)
     {

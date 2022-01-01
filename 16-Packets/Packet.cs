@@ -1,27 +1,40 @@
-﻿public enum PacketType { Sum = 0, Product = 1, Minimum = 2, Maximum = 3, Literal = 4, Gt = 5, Lt = 6, Equal = 7 }
+﻿public enum PacketType { 
+    Sum = 0, 
+    Product = 1, 
+    Minimum = 2, 
+    Maximum = 3, 
+    Literal = 4,
+    Gt = 5, 
+    Lt = 6, 
+    Equal = 7 
+}
 
 
 public class Literal : Packet
 {
-    private string sLiteral = "";
-    public string StrLiteral
+    private string _value = "";
+    public string StrValue
     {
-        get { return sLiteral; }
+        get { return _value; }
         set
         {
-            sLiteral = value;
-            iLiteral = Convert.ToInt64(value, 2);
+            _value = value;
+            iValue = Convert.ToInt64(value, 2);
         }
     }
 
-    public long iLiteral;
+    public long iValue;
 
+    public Literal(int version) : base(version) { }
 }
 
 public class Operator : Packet
 {
-    public PacketFunction PacketFunction { get; set; }
+    public PacketFunction Function { get; set; }
     public List<Packet> Packets = new List<Packet>();
+
+    public Operator(int version) : base(version) { }
+
     public void AddPacket(Packet packet)
     {
         Packets ??= new List<Packet>();
@@ -31,23 +44,14 @@ public class Operator : Packet
 
 public class Packet
 {
-    public PacketType Type;
     public int TypeID;
-    public PacketFunction? PacketFunction;
     public int Version;
     public List<Packet> Packets = new List<Packet>();
-    private string sLiteral = "";
-    public string StrLiteral
-    {
-        get { return sLiteral; }
-        set
-        {
-            sLiteral = value;
-            iLiteral = Convert.ToInt64(value, 2);
-        }
-    }
 
-    public long iLiteral;
+    public Packet(int version)
+    {
+        Version = version;
+    }
 
     public void AddPacket(Packet packet)
     {
