@@ -1,8 +1,8 @@
-﻿public delegate long PacketFunction(List<long> items);
+﻿public delegate long OperatorFunction(List<long> items);
 
 static class Operators
 {
-    public static PacketFunction Function(this PacketType pt)
+    public static OperatorFunction Function(this PacketType pt)
     {
         switch (pt)
         {

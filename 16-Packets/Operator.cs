@@ -1,11 +1,12 @@
-﻿
-
-public class Operator : Packet
+﻿public class Operator : Packet
 {
-    public PacketFunction Function { get; set; }
+    public OperatorFunction Function { get; set; }
     public List<Packet> Packets = new List<Packet>();
 
-    public Operator(int version) : base(version) { }
+    public Operator(int version, int typeID, OperatorFunction function) : base(version, typeID)
+    {
+        Function = function;
+    }
 
     public void AddPacket(Packet packet)
     {

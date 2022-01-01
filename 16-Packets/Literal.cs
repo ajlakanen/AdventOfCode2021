@@ -13,5 +13,8 @@
 
     public long iValue;
 
-    public Literal(int version) : base(version) { }
+    public Literal(int version, int typeID, string value) : base(version, typeID)
+    {
+        StrValue = value;
+    }
 }

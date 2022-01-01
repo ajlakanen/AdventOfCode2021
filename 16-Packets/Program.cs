@@ -64,8 +64,7 @@ public class Day16
     private long Eval(Packet packet)
     {
         if (packet is Literal) return (packet as Literal).iValue;
-        packet = (Operator)packet;
-        PacketFunction func = (packet as Operator).Function;
+        OperatorFunction func = (packet as Operator).Function;
         var packets = (packet as Operator).Packets;
         List<long> values = new List<long>();
 
@@ -86,25 +85,22 @@ public class Day16
         int i = 0;
         int version = Version(bits, i);
         int typeID = Type(bits, i);
-        Packet packet;
-        if (typeID == 4) packet = new Literal(version);
-        else packet = new Operator(version);
         i += 6;
 
-        if (packet is Literal)
+        if (typeID == 4)
         {
             (string value, string remaining) = Literal(bits, i);
-            (packet as Literal).StrValue = value;
-            return (packet, remaining);
+            Literal literal = new(version, typeID, value);
+            return (literal, remaining);
         }
         else // Operator
         {
             int lenTypeID = int.Parse(bits[i++] + "");
-            (packet as Operator).Function = Operators.Function((PacketType)packet.TypeID);
-            int lTypeBits = lenTypeID == 0 ? 15 : 11;
+            Operator oper = new (version, typeID, Operators.Function((PacketType)typeID));
+            int lenTypeBits = lenTypeID == 0 ? 15 : 11;
 
-            int lenOrNumber = Convert.ToInt32(bits[i..(i + lTypeBits)], 2);
-            i += lTypeBits;
+            int lenOrNumber = Convert.ToInt32(bits[i..(i + lenTypeBits)], 2);
+            i += lenTypeBits;
             bits = bits.Substring(i);
             int j = 0;
             while (j < lenOrNumber)
@@ -113,9 +109,9 @@ public class Day16
                 if (remaining.Length == 0) j = lenOrNumber;
                 else j = lenTypeID == 0 ? bits.Length - remaining.Length : j + 1;
                 bits = remaining;
-                if (p != null) (packet as Operator).AddPacket(p);
+                if (p != null) oper.AddPacket(p);
             }
-            return (packet, bits);
+            return (oper, bits);
         }
     }
 
