@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "14-Polymers", "14-Polymers\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "16-PacketDecoder", "16-PacketDecoder\16-PacketDecoder.csproj", "{C87AADF0-F493-4361-81CC-7D5B90A477A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16-Packets", "16-Packets\16-Packets.csproj", "{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "16-Packets", "16-Packets\16-Packets.csproj", "{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17-TrickShot", "17-TrickShot\17-TrickShot.csproj", "{24374908-D317-4B94-B218-45EECA47A683}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1B5F72C-9FF0-4862-AFFF-8D9D21CC8EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24374908-D317-4B94-B218-45EECA47A683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24374908-D317-4B94-B218-45EECA47A683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24374908-D317-4B94-B218-45EECA47A683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24374908-D317-4B94-B218-45EECA47A683}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
