@@ -80,14 +80,13 @@ public class Day16
 
     private (Packet packet, string remainingBits) ReadNext(string bits)
     {
-        if (bits.All(x => x == '0'))
-            return (null, "");
+        if (bits.All(x => x == '0')) return (null, "");
         int i = 0;
         int version = Version(bits, i);
         int typeID = Type(bits, i);
         i += 6;
 
-        if (typeID == 4)
+        if (typeID == 4) // Literal
         {
             (string value, string remaining) = Literal(bits, i);
             Literal literal = new(version, typeID, value);
