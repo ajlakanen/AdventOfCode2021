@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Text;
-
+﻿using System.Text;
 
 public class Day16
 {
@@ -31,12 +29,19 @@ public class Day16
         string dataRaw = File.ReadAllLines("data.txt")[0];
         Day16 day16 = new Day16(dataRaw);
         var result = day16.Solve(day16._bits);
-        //Console.WriteLine(count);
     }
 
-    private int ParseVersion(string bits, int i) => Convert.ToInt32(bits[i..(i + 3)], 2);
-    private int ParseType(string bits, int i) => Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
+    private int ParseVersion(string bits, int i, bool debug = false)
+    {
+        if (debug) Console.Write(bits[i..(i + 3)] + " ");
+        return Convert.ToInt32(bits[i..(i + 3)], 2);
+    }
 
+    private int ParseType(string bits, int i, bool debug = false)
+    {
+        if (debug) Console.Write(bits[(i + 3)..(i + 6)] + " ");
+        return Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
+    }
     private (string value, string remainingBits) Literal(string bits, int i)
     {
         int j = i;
@@ -61,6 +66,11 @@ public class Day16
         return packet.VersionSum();
     }
 
+    /// <summary>
+    /// Evaluate the expression tree.
+    /// </summary>
+    /// <param name="packet">Packet.</param>
+    /// <returns>Result of the evaluation.</returns>
     private long Eval(Packet packet)
     {
         if (packet is Literal) return (packet as Literal).Value;
@@ -78,35 +88,45 @@ public class Day16
         return invoked;
     }
 
-    private (Packet packet, string remainingBits) ReadNext(string bits)
+    private (Packet packet, string remainingBits) ReadNext(string bits, bool debug = false)
     {
         if (bits.All(x => x == '0')) return (null, "");
         int i = 0;
-        int version = ParseVersion(bits, i);
-        int typeID = ParseType(bits, i);
+        int version = ParseVersion(bits, i, debug);
+        int typeID = ParseType(bits, i, debug);
         i += 6;
 
         if (typeID == 4) // Literal
         {
             (string value, string remaining) = Literal(bits, i);
             Literal literal = new(version, typeID, value);
+            if (debug) Console.WriteLine(value + " // Literal " + literal.Value);
             return (literal, remaining);
         }
         else // Operator
         {
             int lenTypeID = int.Parse(bits[i++] + "");
-            Operator oper = new (version, typeID, Operators.Function((PacketType)typeID));
+            Operator oper = new(version, typeID, Operators.Function((PacketType)typeID));
             int lenTypeBits = lenTypeID == 0 ? 15 : 11;
-
             int lenOrNumber = Convert.ToInt32(bits[i..(i + lenTypeBits)], 2);
+
+            #region Debug
+            if (debug) Console.Write(lenTypeID + " "); 
+            if (debug) Console.Write(bits[i..(i + lenTypeBits)] + " ");
+            if (debug) Console.Write(" // ");
+            if (debug) Console.Write((PacketType)typeID + " ");
+            if (debug) Console.Write(lenOrNumber + " ");
+            if (debug) if (lenTypeID == 0) Console.Write(lenOrNumber + " bits \n"); else Console.Write(lenOrNumber + " packets \n");
+            #endregion
+
             i += lenTypeBits;
             bits = bits[i..];
             int j = 0;
             while (j < lenOrNumber)
             {
-                var (p, remaining) = ReadNext(bits);
+                var (p, remaining) = ReadNext(bits, true);
                 if (remaining.Length == 0) j = lenOrNumber;
-                else j = lenTypeID == 0 ? bits.Length - remaining.Length : j + 1;
+                else j = lenTypeID == 0 ? j += bits.Length - remaining.Length : j + 1;
                 bits = remaining;
                 if (p != null) oper.AddPacket(p);
             }

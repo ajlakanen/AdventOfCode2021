@@ -3,6 +3,9 @@
 
     private int _typeID;
 
+    /// <summary>
+    /// Type ID for debugging purposes. 
+    /// </summary>
     public int TypeID
     {
         get { return _typeID; }
