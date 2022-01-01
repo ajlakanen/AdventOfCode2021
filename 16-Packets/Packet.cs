@@ -1,9 +1,39 @@
 ﻿public enum PacketType { Sum = 0, Product = 1, Minimum = 2, Maximum = 3, Literal = 4, Gt = 5, Lt = 6, Equal = 7 }
 
 
+public class Literal : Packet
+{
+    private string sLiteral = "";
+    public string StrLiteral
+    {
+        get { return sLiteral; }
+        set
+        {
+            sLiteral = value;
+            iLiteral = Convert.ToInt64(value, 2);
+        }
+    }
+
+    public long iLiteral;
+
+}
+
+public class Operator : Packet
+{
+    public PacketFunction PacketFunction { get; set; }
+    public List<Packet> Packets = new List<Packet>();
+    public void AddPacket(Packet packet)
+    {
+        Packets ??= new List<Packet>();
+        Packets.Add(packet);
+    }
+}
+
 public class Packet
 {
     public PacketType Type;
+    public int TypeID;
+    public PacketFunction? PacketFunction;
     public int Version;
     public List<Packet> Packets = new List<Packet>();
     private string sLiteral = "";
@@ -16,7 +46,6 @@ public class Packet
             iLiteral = Convert.ToInt64(value, 2);
         }
     }
-
 
     public long iLiteral;
 

@@ -1,4 +1,4 @@
-﻿public delegate int PacketFunction(List<int> items);
+﻿public delegate long PacketFunction(List<long> items);
 
 static class PacketFunctions
 {
@@ -9,7 +9,7 @@ static class PacketFunctions
             case PacketType.Sum:
                 return x => x.Sum();
             case PacketType.Product:
-                return x => x.Aggregate(1, (prev, next) => prev * next);
+                return x => x.Aggregate<long, long>(1, (prev, next) => prev * next);
             case PacketType.Minimum:
                 return x => x.Min();
             case PacketType.Maximum:

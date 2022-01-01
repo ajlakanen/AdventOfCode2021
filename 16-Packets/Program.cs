@@ -35,7 +35,7 @@ public class Day16
     }
 
     private int Version(string bits, int i) => Convert.ToInt32(bits[i..(i + 3)], 2);
-    private PacketType Type(string bits, int i) => (PacketType)Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
+    private int Type(string bits, int i) => Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
 
     private (string value, string remainingBits) Literal(string bits, int i)
     {
@@ -57,7 +57,26 @@ public class Day16
         var (p, remaining) = ReadNext(bits);
         packet = p;
 
+        var result = Eval(packet);
+
         return packet.VersionSum();
+    }
+
+    private long Eval(Packet packet)
+    {
+        if (packet.Type == PacketType.Literal) return packet.iLiteral;
+        var func = packet.PacketFunction;
+        var packets = packet.Packets;
+        List<long> values = new List<long>();
+
+        foreach (Packet p in packets)
+        {
+            var result = Eval(p);
+            values.Add(result);
+        }
+
+        var invoked = func.Invoke(values);
+        return invoked;
     }
 
     private (Packet packet, string remainingBits) ReadNext(string bits)
@@ -68,7 +87,8 @@ public class Day16
         Packet packet = new Packet();
 
         packet.Version = Version(bits, i);
-        packet.Type = Type(bits, i);
+        packet.TypeID = Type(bits, i);
+        packet.Type = (PacketType)packet.TypeID;
         i += 6;
 
         if (packet.Type == PacketType.Literal)
@@ -80,6 +100,7 @@ public class Day16
         else // Operator
         {
             int lTypeID = int.Parse(bits[i++] + "");
+            packet.PacketFunction = PacketFunctions.Function(packet.Type);
             int lTypeBits = lTypeID == 0 ? 15 : 11;
 
             int lenOrNumber = Convert.ToInt32(bits[i..(i + lTypeBits)], 2);
@@ -92,7 +113,7 @@ public class Day16
                 if (remaining.Length == 0) j = lenOrNumber;
                 else j = lTypeID == 0 ? bits.Length - remaining.Length : j + 1;
                 bits = remaining;
-                packet.AddPacket(p);
+                if (p != null) packet.AddPacket(p);
             }
             return (packet, bits);
         }
