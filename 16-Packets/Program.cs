@@ -34,8 +34,8 @@ public class Day16
         //Console.WriteLine(count);
     }
 
-    private int Version(string bits, int i) => Convert.ToInt32(bits[i..(i + 3)], 2);
-    private int Type(string bits, int i) => Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
+    private int ParseVersion(string bits, int i) => Convert.ToInt32(bits[i..(i + 3)], 2);
+    private int ParseType(string bits, int i) => Convert.ToInt32(bits[(i + 3)..(i + 6)], 2);
 
     private (string value, string remainingBits) Literal(string bits, int i)
     {
@@ -82,8 +82,8 @@ public class Day16
     {
         if (bits.All(x => x == '0')) return (null, "");
         int i = 0;
-        int version = Version(bits, i);
-        int typeID = Type(bits, i);
+        int version = ParseVersion(bits, i);
+        int typeID = ParseType(bits, i);
         i += 6;
 
         if (typeID == 4) // Literal
