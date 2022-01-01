@@ -48,7 +48,7 @@ public class Day16
             j += 5;
             if (bits[j - 5] == '0') break;
         }
-        return (sLiteral, bits.Substring(j));
+        return (sLiteral, bits[j..]);
     }
 
     private int Solve(string bits)
