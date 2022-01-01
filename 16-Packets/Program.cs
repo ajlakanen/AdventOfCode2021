@@ -63,7 +63,7 @@ public class Day16
 
     private long Eval(Packet packet)
     {
-        if (packet is Literal) return (packet as Literal).iValue;
+        if (packet is Literal) return (packet as Literal).Value;
         OperatorFunction func = (packet as Operator).Function;
         var packets = (packet as Operator).Packets;
         List<long> values = new List<long>();

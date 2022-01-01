@@ -7,14 +7,14 @@
         set
         {
             _value = value;
-            iValue = Convert.ToInt64(value, 2);
+            Value = Convert.ToInt64(value, 2);
         }
     }
 
-    public long iValue;
+    public long Value;
 
-    public Literal(int version, int typeID, string value) : base(version, typeID)
+    public Literal(int version, int typeID, string strValue) : base(version, typeID)
     {
-        StrValue = value;
+        StrValue = strValue;
     }
 }
