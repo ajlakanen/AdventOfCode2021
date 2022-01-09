@@ -1,5 +1,8 @@
 ﻿using System.Text;
 
+/// <summary>
+/// See, https://adventofcode.com/2021/day/14
+/// </summary>
 public class Day14
 {
     private readonly string Start = "NNCB";

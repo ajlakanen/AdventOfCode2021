@@ -1,4 +1,7 @@
-﻿public class Day6
+﻿/// <summary>
+/// See, https://adventofcode.com/2021/day/6
+/// </summary>
+public class Day6
 {
     public static void Main()
     {
